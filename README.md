@@ -1,80 +1,8 @@
-# 8822BU for Linux
+민코딩(mincoding) 에서 삼성전자 / SSAFY 임베디드반 강의용으로 wifi driver 수정
 
-Note: I no longer have a device that requires this driver, thus no guarantees that it still works, only that it compiles on my machine.
+Raspberry Pi 4 에서 Wifi 끊김현상 발생
+- MediaTek chipset을 사용하는 일부 iptime 무선랜카드 인식 안됨
+- 무선랜카드 Next 1201AC (5G) driver 설치 방법
+http://www.ez-net.co.kr/new_2012/upload/goods/1201.665.jpg
 
-Driver for 802.11ac USB Adapter with  
-RTL8822BU chipset  
-Only STA/Monitor Mode is supported, no AP.  
-
-A few known wireless cards that use this driver include 
-* [Edimax EW-7822ULC](http://us.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/us/wireless_adapters_ac1200_dual-band/ew-7822ulc/)
-* [ASUS AC-53 NANO](https://www.asus.com/Networking/USB-AC53-Nano/)
-* [D-Link DWA-182 (Revision D1 only)](http://ca.dlink.com/products/connect/wireless-ac1200-dual-band-usb-adapter/)
-* [tp-link Archer T4U (Revision V3 only)](https://www.tp-link.com/us/home-networking/usb-adapter/archer-t4u/)
-
-
-
-> NOTE: At least v4.7 is needed to compile this module
-> sorry people with older kernels, the code is removed.
-> Upon request I can work towards making it backwards compatible.
-
-Currently tested on X86_64 and ARM platform(s) **only**,  
-cross compile possible.
-
-## Installing
-For compiling type  
-```
-make
-```
-in source dir  
-
-To install the firmware files  
-```
-sudo make install
-```
-
-
-To Unload driver you may need to disconnect the device  
-
-If the driver fails building consult your distro how to  
-install the kernel sources and build an <u>external</u> module.
-
-## DKMS
-Automatically rebuilds and installs on kernel updates. DKMS is in official sources of Ubuntu, for installation do:
-```
-sudo apt-get install build-essential dkms
-```
-
-Then install the module using dkms do in source dir:
-```
-sudo dkms add .
-sudo dkms install -m 88x2bu -v 1.1
-```
-In order to uninstall the module:
-```
-sudo dkms remove -m 88x2bu -v 1.1 --all
-sudo rm -rf /usr/src/88x2bu-1.1
-```
-
-## NOTES  
-This driver allows use of wpa_supplicant by using the nl80211 driver
-`wpa_supplicant -Dnl80211`
-
-If installing on Rasberry Pi or other "armv71" devices, edit the Makefile and set `CONFIG_PLATFORM_ARM_RPI = y` and `CONFIG_PLATFORM_I386_PC = n`
-
-On Debian with some wireless managers (KDE confirmed) you must append the following to /etc/NetworkManager/NetworkManager.conf:
-
-[device]
-wifi.scan-rand-mac-address=no
-
-Otherwise, you may get stuck in an infinte loop of failed connection and a prompt for password. Source page here:
-https://wiki.debian.org/WiFi
-
-## STATUS
-Driver works fine (some sort of)  
-Most of the work is done is cleaning the driver and make this mess **readable**   for conversion.
-Updates for wireless-ext/cfg80211  are not accepted.  
-
-  
-## BUGS
-
+===================================================================================
