@@ -1,6 +1,6 @@
 #Install Build Tool
-sudo apt install git gcc make vim
-sudo apt install build-essential bc git wget libssl-dev bison flex
+sudo apt install git gcc make vim -y
+sudo apt install build-essential bc git wget libssl-dev bison flex -y
 
 #Get kernel source code
 cd /usr/src
